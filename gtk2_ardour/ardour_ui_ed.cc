@@ -691,3 +691,9 @@ ARDOUR_UI::xrun_button_release (GdkEventButton* ev)
 	}
 	return true;
 }
+
+Gtk::Notebook&
+ARDOUR_UI::tabs()
+{
+	return editor->tabs();
+}
