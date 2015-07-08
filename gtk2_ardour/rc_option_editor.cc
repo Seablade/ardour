@@ -1786,7 +1786,7 @@ private:
 
 RCOptionEditor::RCOptionEditor ()
 	: OptionEditor (Config, string_compose (_("%1 Preferences"), PROGRAM_NAME))
-	, Tabbable (*this, _("Preferences"))
+	, Tabbable (*this, _("Preferences")) /* pack self-as-vbox into tabbable */
         , _rc_config (Config)
 	, _ui_config (ARDOUR_UI::config())
 	, _mixer_strip_visibility ("mixer-element-visibility")
@@ -3092,4 +3092,21 @@ RCOptionEditor::populate_sync_options ()
 			_rc_config->set_sync_source(sync_opts.front());
 		}
 	}
+}
+
+Gtk::Window*
+RCOptionEditor::use_own_window ()
+{
+	bool new_window = !own_window();
+	
+	Gtk::Window* win = Tabbable::use_own_window ();
+
+	if (win && new_window) {
+		win->set_name ("PreferencesWindow");
+		ARDOUR_UI::instance()->setup_toplevel_window (*win, _("Preferences"), this);
+
+		cerr << "created prefs window\n";
+	}
+
+	return win;
 }
