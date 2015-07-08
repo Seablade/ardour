@@ -71,7 +71,7 @@ using namespace ARDOUR_UI_UTILS;
 class AutoReturnTargetOptions : public OptionEditorBox
 {
     public:
-	AutoReturnTargetOptions (RCConfiguration* c, Gtk::Window* p)
+	AutoReturnTargetOptions (RCConfiguration* c)
 		: _rc_config (c)
 		, range_selection_button (_("Play Range Selection"))
 		, last_roll_button (_("Play from Last Roll"))
@@ -1786,6 +1786,7 @@ private:
 
 RCOptionEditor::RCOptionEditor ()
 	: OptionEditor (Config, string_compose (_("%1 Preferences"), PROGRAM_NAME))
+	, Tabbable (*this, _("Preferences"))
         , _rc_config (Config)
 	, _ui_config (ARDOUR_UI::config())
 	, _mixer_strip_visibility ("mixer-element-visibility")
@@ -1899,7 +1900,7 @@ RCOptionEditor::RCOptionEditor ()
 	/* TRANSPORT */
 
 	add_option (_("Transport"), new OptionEditorHeading (S_("Playhead Behaviour")));
-	add_option (_("Transport"), new AutoReturnTargetOptions (_rc_config, this));
+	add_option (_("Transport"), new AutoReturnTargetOptions (_rc_config));
 	add_option (_("Transport"), new OptionEditorHeading (S_("Transport Options")));
 
 	BoolOption* tsf;
