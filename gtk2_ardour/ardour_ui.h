@@ -326,9 +326,7 @@ class ARDOUR_UI : public Gtkmm2ext::UI, public ARDOUR::SessionHandlePtr
 	                                   gpointer user_data);
 
 	bool tabbed_window_state_event_handler (GdkEventWindowState*, void* object);
-
-	bool key_press_handler (GdkEventKey*, Gtk::Window* event_window);
-	bool key_release_handler (GdkEventKey*, Gtk::Window* event_window);
+	bool key_event_handler (GdkEventKey*, Gtk::Window* window);
 
   protected:
 	friend class PublicEditor;
@@ -831,7 +829,7 @@ class ARDOUR_UI : public Gtkmm2ext::UI, public ARDOUR::SessionHandlePtr
 	void audioengine_became_silent ();
 
 	void tabs_switch (GtkNotebookPage*, guint page_number);
-	bool key_event_handler (GdkEventKey*, Gtk::Window* window);
+	bool key_press_focus_accelerator_handler (Gtk::Window& window, GdkEventKey* ev, Gtkmm2ext::Bindings*);
 };
 
 #endif /* __ardour_gui_h__ */
